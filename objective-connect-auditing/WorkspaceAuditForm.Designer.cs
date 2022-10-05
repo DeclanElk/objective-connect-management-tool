@@ -45,11 +45,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(266, 9);
+            this.label1.Location = new System.Drawing.Point(211, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(246, 32);
+            this.label1.Size = new System.Drawing.Size(367, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Workspace Auditing";
+            this.label1.Text = "Workspace Auditing (Monthly)";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2

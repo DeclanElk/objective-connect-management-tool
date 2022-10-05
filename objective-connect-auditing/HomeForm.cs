@@ -34,5 +34,12 @@ namespace objective_connect_auditing
         {
             label1.Text = token;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            WorkspaceAuditFormHistorical wsHistoricalAuditForm = new WorkspaceAuditFormHistorical(token, workgroupUuid, accountUuid);
+            wsHistoricalAuditForm.Show();
+            this.Hide();
+        }
     }
 }
