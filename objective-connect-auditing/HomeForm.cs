@@ -12,22 +12,27 @@ namespace objective_connect_auditing
 {
     public partial class HomeForm : Form
     {
-        public static string token = "";
-        public HomeForm()
+        private string token = "";
+        private string workgroupUuid = "";
+        private string accountUuid = "";
+        public HomeForm(string passedToken, string workgroupUuid, string accountUuid)
         {
             InitializeComponent();
-        }
-
-        private void HomeForm_Load(object sender, EventArgs e)
-        {
-            token = LoginForm.token;
+            this.token = passedToken;
+            this.workgroupUuid = workgroupUuid;
+            this.accountUuid = accountUuid;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WorkspaceAuditForm wsAuditForm = new WorkspaceAuditForm();
+            WorkspaceAuditForm wsAuditForm = new WorkspaceAuditForm(token, workgroupUuid, accountUuid);
             wsAuditForm.Show();
             this.Hide();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = token;
         }
     }
 }
