@@ -40,6 +40,11 @@ namespace objective_connect_auditing
 
         private async void runReport()
         {
+            //Clear alert
+            label6.Text = "";
+
+            int months = Decimal.ToInt32(numericUpDown1.Value);
+
             //URL Formatting
             string url = $"https://secure.objectiveconnect.com/publicapi/1/workspacecsv?accountUuid={accountUuid}&workgroupUuid={workgroupUuid}";
 
@@ -91,12 +96,12 @@ namespace objective_connect_auditing
                 DateTime openDate;
                 if (DateTime.TryParse(fields[5].Substring(0, 8), out openDate))
                 {
-                    //If the open date is more than 6-months ago run individual audit report
+                    //If the open date is more than x-months ago run individual audit report
                     //for last activity date
-                    if (DateTime.Now.AddMonths(-6) > openDate)
+                    if (DateTime.Now.AddMonths(-months) > openDate)
                     {
-                        //Define dates for the individual audit report (6 months)
-                        long startTime = DateTimeOffset.Now.AddMonths(-6).ToUnixTimeMilliseconds();
+                        //Define dates for the individual audit report
+                        long startTime = DateTimeOffset.Now.AddMonths(-months).ToUnixTimeMilliseconds();
                         long endTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
                         string workspaceId = fields[0];
@@ -109,7 +114,7 @@ namespace objective_connect_auditing
                         individualAuditClient.DefaultRequestHeaders.Accept.Clear();
                         individualAuditClient.DefaultRequestHeaders.Add("Authorization", token);
 
-                        //Asnychronously fetch individual workspace audit for previous 6 months
+                        //Asnychronously fetch individual workspace audit for previous x months
                         Task<string> individualStringTask = individualAuditClient.GetStringAsync(wsUrl);
                         string individualResponse = await individualStringTask;
 
@@ -140,11 +145,11 @@ namespace objective_connect_auditing
                         }
 
                         //After the CSV has been read, if the DateTime value hasn't changed, there has
-                        //been no activity in the past 6 months, meaning we can add this workspace to the output
+                        //been no activity in the past x months, meaning we can add this workspace to the output
                         if (mostRecentEvent == DateTime.MinValue)
                         {
                             outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11] });
-                            label4.Text = "Workspaces found that meet the criteria: " + outputWorkspaces.Count;
+                            label4.Text = "Workspaces found: " + outputWorkspaces.Count;
                         }
                     }
                 }
@@ -159,30 +164,39 @@ namespace objective_connect_auditing
                 csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3];
             }
 
-            //Show save dialog
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Title = "Save output CSV";
-            saveFileDialog1.ShowDialog();
-
-            label4.Text = saveFileDialog1.FileName;
-
-            //Write list of workspaces to CSV file
-            if (saveFileDialog1.FileName != "")
+            //Show save file dialog and save results to CSV
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK && saveFileDialog1.FileName != "")
             {
                 await File.WriteAllLinesAsync(saveFileDialog1.FileName, csvOutputLines);
+                label6.ForeColor = Color.Green;
+                label6.Text = "File saved successfully.";
             }
             else
             {
-                await File.WriteAllLinesAsync("Workspace Report.csv", csvOutputLines);
+                label6.Text = "File could not be saved.";
+                label6.ForeColor = Color.Red;
             }
-            
-            //Display count of workspaces and connections used 
-            //int connectionsCount = 0;
-            //foreach (string[] workspace in outputWorkspaces)
-            //{
-            //    connectionsCount += Int32.Parse(workspace[3]);
-            //}
-            //Console.WriteLine("Total Workspaces not used in the past {0}-months: {1}   Totalling {2} connections.", 6, outputWorkspaces.Count, connectionsCount);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            HomeForm homeForm = new HomeForm(token, workgroupUuid, accountUuid);
+            homeForm.Show();
+            this.Hide();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
 
         }
     }
