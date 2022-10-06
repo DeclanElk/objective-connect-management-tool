@@ -140,7 +140,7 @@ namespace objective_connect_auditing
                             {
                                 //Attempt to parse it into the Date object above, if it parses, this is the
                                 //most recent activity, if it doesn't, the date object doesn't change
-                                DateTime.TryParse(fields2[0].Substring(0, 10), out mostRecentEvent);
+                                DateTime.TryParse(fields2[0], out mostRecentEvent);
                             }
                         }
 

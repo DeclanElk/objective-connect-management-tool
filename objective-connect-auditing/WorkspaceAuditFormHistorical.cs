@@ -72,6 +72,7 @@ namespace objective_connect_auditing
 
             //Calculate number of workspaces
             int numWorkspaces = response.Split('\n').Length;
+            progressBar1.Maximum = numWorkspaces;
             int workspacesParsed = 0;
 
             //Read CSV as a stream to TextFieldParser (CSV reading tool)
@@ -88,57 +89,61 @@ namespace objective_connect_auditing
                 //Read the current line into a string array
                 string[] fields = csvParser.ReadFields();
 
-                //Define dates for the individual audit report (hardcoded to 20 years prior)
-                long startTime = DateTimeOffset.Now.AddYears(-1).ToUnixTimeMilliseconds();
-                long endTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-
-                string workspaceId = fields[0];
-
-                //Interpolate start/stop unix timestamps and workspace ID to API url
-                string wsUrl = $"https://secure.objectiveconnect.com/publicapi/1/workspaceauditcsv?workspaceUuid={workspaceId}&startTime={startTime}&endTime={endTime}&isDeletedWorkspace=false";
-
-                //Create new HTTP request object and set headers
-                HttpClient individualAuditClient = new HttpClient(handler: httpClientHandler, disposeHandler: true);
-                individualAuditClient.DefaultRequestHeaders.Accept.Clear();
-                individualAuditClient.DefaultRequestHeaders.Add("Authorization", token);
-
-                //Asnychronously fetch individual workspace audit for previous x months
-                Task<string> individualStringTask = individualAuditClient.GetStringAsync(wsUrl);
-                string individualResponse = await individualStringTask;
-
-                //Read CSV response as a stream to TextFieldParser (CSV reading tool)
-                StringReader individualStringStream = new StringReader(individualResponse);
-                TextFieldParser individualCsvParser = new TextFieldParser(individualStringStream);
-
-                //Set parameters of TextFieldParser
-                individualCsvParser.TextFieldType = FieldType.Delimited;
-                individualCsvParser.SetDelimiters(",");
-
-                //Object to hold the most recent activity recorded in the individual audit report
-                DateTime mostRecentEvent = new DateTime();
-
-                //Process the CSV data line by line
-                while (!individualCsvParser.EndOfData)
+                DateTime dateTest;
+                if (DateTime.TryParse(fields[5].Substring(0, 8), out dateTest))
                 {
-                    //Read the current line into a string array
-                    string[] fields2 = individualCsvParser.ReadFields();
+                    //Define dates for the individual audit report (hardcoded to 20 years prior)
+                    long startTime = DateTimeOffset.Now.AddYears(-20).ToUnixTimeMilliseconds();
+                    long endTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-                    DateTime.TryParse(fields2[0].Substring(0, 10), out mostRecentEvent);
-                }
+                    string workspaceId = fields[0];
 
-                //After the CSV has been read, add workspace details and final recorded date to output
-                if (mostRecentEvent == DateTime.MinValue)
-                {
-                    outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], "" });
-                }
-                else
-                {
-                    outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString() });
+                    //Interpolate start/stop unix timestamps and workspace ID to API url
+                    string wsUrl = $"https://secure.objectiveconnect.com/publicapi/1/workspaceauditcsv?workspaceUuid={workspaceId}&startTime={startTime}&endTime={endTime}&isDeletedWorkspace=false";
+
+                    //Create new HTTP request object and set headers
+                    HttpClient individualAuditClient = new HttpClient(handler: httpClientHandler, disposeHandler: true);
+                    individualAuditClient.DefaultRequestHeaders.Accept.Clear();
+                    individualAuditClient.DefaultRequestHeaders.Add("Authorization", token);
+
+                    //Asnychronously fetch individual workspace audit for previous x months
+                    Task<string> individualStringTask = individualAuditClient.GetStringAsync(wsUrl);
+                    string individualResponse = await individualStringTask;
+
+                    //Read CSV response as a stream to TextFieldParser (CSV reading tool)
+                    StringReader individualStringStream = new StringReader(individualResponse);
+                    TextFieldParser individualCsvParser = new TextFieldParser(individualStringStream);
+
+                    //Set parameters of TextFieldParser
+                    individualCsvParser.TextFieldType = FieldType.Delimited;
+                    individualCsvParser.SetDelimiters(",");
+
+                    //Object to hold the most recent activity recorded in the individual audit report
+                    DateTime mostRecentEvent = new DateTime();
+
+                    //Process the CSV data line by line
+                    while (!individualCsvParser.EndOfData)
+                    {
+                        //Read the current line into a string array
+                        string[] fields2 = individualCsvParser.ReadFields();
+
+                        DateTime.TryParse(fields2[0], out mostRecentEvent);
+                    }
+
+                    //After the CSV has been read, add workspace details and final recorded date to output
+                    if (mostRecentEvent == DateTime.MinValue)
+                    {
+                        outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], "" });
+                    }
+                    else
+                    {
+                        outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString() });
+                    }
                 }
 
                 //Update progress bar
                 workspacesParsed++;
-                progressBar1.Value = workspacesParsed / numWorkspaces;
+                progressBar1.Value = workspacesParsed;
             }
 
             //Format each output workspace into comma delinieated string
@@ -162,6 +167,8 @@ namespace objective_connect_auditing
                 label4.Text = "File could not be saved.";
                 label4.ForeColor = Color.Red;
             }
+
+            progressBar1.Value = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)
