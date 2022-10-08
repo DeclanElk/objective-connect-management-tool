@@ -175,7 +175,7 @@ namespace objective_connect_auditing
         {
             HomeForm homeForm = new HomeForm(token, workgroupUuid, accountUuid);
             homeForm.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)

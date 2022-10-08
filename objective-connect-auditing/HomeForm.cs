@@ -27,7 +27,7 @@ namespace objective_connect_auditing
         {
             WorkspaceAuditForm wsAuditForm = new WorkspaceAuditForm(token, workgroupUuid, accountUuid);
             wsAuditForm.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace objective_connect_auditing
         {
             WorkspaceAuditFormHistorical wsHistoricalAuditForm = new WorkspaceAuditFormHistorical(token, workgroupUuid, accountUuid);
             wsHistoricalAuditForm.Show();
-            this.Hide();
+            this.Close();
         }
     }
 }

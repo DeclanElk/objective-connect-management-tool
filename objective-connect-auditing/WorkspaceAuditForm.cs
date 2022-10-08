@@ -187,7 +187,7 @@ namespace objective_connect_auditing
         {
             HomeForm homeForm = new HomeForm(token, workgroupUuid, accountUuid);
             homeForm.Show();
-            this.Hide();
+            this.Close();
         }
 
         private void label5_Click(object sender, EventArgs e)
