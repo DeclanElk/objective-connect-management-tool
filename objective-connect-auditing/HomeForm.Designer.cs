@@ -42,7 +42,6 @@
             this.label1.Size = new System.Drawing.Size(351, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "Auditing Functions";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -75,6 +74,7 @@
             this.Name = "HomeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.HomeForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
