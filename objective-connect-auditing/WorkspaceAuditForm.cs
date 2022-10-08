@@ -18,21 +18,7 @@ namespace objective_connect_auditing
             this.accountUuid = accountUuid;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
+        //Run the report
         private void button1_Click(object sender, EventArgs e)
         {
             runReport();
@@ -178,26 +164,18 @@ namespace objective_connect_auditing
             }
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //Navigate back to the home page
         private void button2_Click(object sender, EventArgs e)
         {
             HomeForm homeForm = new HomeForm(token, workgroupUuid, accountUuid);
             homeForm.Show();
-            this.Close();
+            this.Hide();
         }
 
-        private void label5_Click(object sender, EventArgs e)
+        //Close application on form close
+        private void WorkspaceAuditForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            Application.Exit();
         }
     }
 }

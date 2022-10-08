@@ -50,7 +50,6 @@
             this.label1.Size = new System.Drawing.Size(367, 32);
             this.label1.TabIndex = 0;
             this.label1.Text = "Workspace Auditing (Monthly)";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -61,7 +60,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "This report will return all open workspaces that have not been accessed in the nu" +
     "mber of months that you specify.";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // saveFileDialog1
             // 
@@ -69,7 +67,6 @@
             this.saveFileDialog1.FileName = "Worksapce Audit.csv";
             this.saveFileDialog1.Filter = "CSV (*.csv)|*.csv";
             this.saveFileDialog1.Title = "Choose where to save the report";
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // button1
             // 
@@ -100,7 +97,6 @@
             this.label4.Size = new System.Drawing.Size(126, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "Workspaces found:  0";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // button2
             // 
@@ -120,7 +116,6 @@
             this.label5.Size = new System.Drawing.Size(198, 15);
             this.label5.TabIndex = 9;
             this.label5.Text = "Minimum time doormant (months):";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // numericUpDown1
             // 
@@ -153,7 +148,6 @@
             this.label6.Size = new System.Drawing.Size(0, 15);
             this.label6.TabIndex = 11;
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // WorkspaceAuditForm
             // 
@@ -172,6 +166,7 @@
             this.Name = "WorkspaceAuditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Workspace Auditing";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkspaceAuditForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

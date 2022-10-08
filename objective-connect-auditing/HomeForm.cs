@@ -38,7 +38,7 @@ namespace objective_connect_auditing
         {
             WorkspaceAuditFormHistorical wsHistoricalAuditForm = new WorkspaceAuditFormHistorical(token, workgroupUuid, accountUuid);
             wsHistoricalAuditForm.Show();
-            this.Close();
+            this.Hide();
         }
 
         //Close application on form close
