@@ -30,7 +30,7 @@ namespace objective_connect_auditing
         {
             WorkspaceAuditForm wsAuditForm = new WorkspaceAuditForm(token, workgroupUuid, accountUuid);
             wsAuditForm.Show();
-            this.Close();
+            this.Hide();
         }
 
         //Navigate to individual report form

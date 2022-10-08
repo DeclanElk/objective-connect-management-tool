@@ -27,6 +27,7 @@ namespace objective_connect_auditing
             this.accountUuid = accountUuid;
         }
 
+        //Run report
         private void button1_Click(object sender, EventArgs e)
         {
             runReport();
@@ -168,19 +169,22 @@ namespace objective_connect_auditing
                 label4.ForeColor = Color.Red;
             }
 
+            //Clear progress bar
             progressBar1.Value = 0;
         }
 
+        //Return to home screen
         private void button2_Click(object sender, EventArgs e)
         {
             HomeForm homeForm = new HomeForm(token, workgroupUuid, accountUuid);
             homeForm.Show();
-            this.Close();
+            this.Hide();
         }
 
-        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        //Close application on form close
+        private void WorkspaceAuditFormHistorical_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }

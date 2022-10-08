@@ -102,7 +102,6 @@
             this.saveFileDialog1.FileName = "Worksapce Audit.csv";
             this.saveFileDialog1.Filter = "CSV (*.csv)|*.csv";
             this.saveFileDialog1.Title = "Choose where to save the report";
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // label4
             // 
@@ -128,6 +127,7 @@
             this.Name = "WorkspaceAuditFormHistorical";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkspaceAuditFormHistorical_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
