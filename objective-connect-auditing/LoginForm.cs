@@ -90,7 +90,7 @@ namespace objective_connect_auditing
             catch
             {
                 MessageBox.Show(
-                    "Could not sign in.\nPlease check your credentials and network connection, then try again",
+                    "Could not sign in.\n\nPlease check your credentials and network connection, then try again.",
                     "Error signing in",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
