@@ -148,7 +148,16 @@ namespace objective_connect_auditing
 
                 for (int i = 0; i < outputWorkspaces.Count; i++)
                 {
-                    csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3];
+                    //Nicely format the open date if possible
+                    DateTime openDate;
+                    if (DateTime.TryParse(outputWorkspaces[i][2].Substring(0, 8), out openDate))
+                    {
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + openDate.ToString("dd/MM/yyyy") + "," + outputWorkspaces[i][3];
+                    }
+                    else
+                    {
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3];
+                    }
                 }
 
                 //Show save file dialog and save results to CSV

@@ -129,7 +129,7 @@ namespace objective_connect_auditing
                         }
                         else
                         {
-                            outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString() });
+                            outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
                         }
                     }
 
@@ -144,7 +144,16 @@ namespace objective_connect_auditing
 
                 for (int i = 0; i < outputWorkspaces.Count; i++)
                 {
-                    csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4];
+                    //Cleaning up open date formatting
+                    DateTime openDate;
+                    if (DateTime.TryParse(outputWorkspaces[i][2].Substring(0, 8), out openDate))
+                    {
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + openDate.ToString("dd/MM/yyyy") + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4];
+                    }
+                    else
+                    {
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4];
+                    }
                 }
 
                 //Show save file dialog and save results to CSV
