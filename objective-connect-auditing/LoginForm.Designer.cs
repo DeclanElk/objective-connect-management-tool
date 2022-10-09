@@ -47,7 +47,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Login";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -73,7 +72,6 @@
             this.label3.Size = new System.Drawing.Size(39, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Email:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -83,7 +81,6 @@
             this.label4.Size = new System.Drawing.Size(63, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "Password: ";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBox2
             // 
@@ -92,7 +89,7 @@
             this.textBox2.PasswordChar = '•';
             this.textBox2.Size = new System.Drawing.Size(260, 23);
             this.textBox2.TabIndex = 4;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // button1
             // 

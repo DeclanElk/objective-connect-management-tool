@@ -14,27 +14,23 @@ namespace objective_connect_auditing
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        //Run login function when login button pressed
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            login();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        //Run login function when enter pressed on password field
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                login();
+            }
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
+        //Sign in user using the OC endpoint and pass account and workgroup ID's to the child form
+        private async void login()
         {
             try
             {

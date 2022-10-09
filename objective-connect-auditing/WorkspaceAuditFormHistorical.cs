@@ -140,7 +140,7 @@ namespace objective_connect_auditing
 
                 //Format each output workspace into comma delinieated string
                 string[] csvOutputLines = new string[outputWorkspaces.Count + 1];
-                csvOutputLines[0] = "Workspace Name,Author,Open Date,Connections,Last Accessed";
+                csvOutputLines[0] = "Workspace Name,Owner,Open Date,Connections,Last Accessed";
 
                 for (int i = 0; i < outputWorkspaces.Count; i++)
                 {
