@@ -37,6 +37,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +75,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(344, 188);
+            this.button1.Location = new System.Drawing.Point(366, 261);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(110, 34);
             this.button1.TabIndex = 7;
@@ -81,7 +85,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(144, 140);
+            this.progressBar1.Location = new System.Drawing.Point(157, 214);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(530, 23);
             this.progressBar1.Step = 1;
@@ -113,11 +117,40 @@
             this.label4.Size = new System.Drawing.Size(0, 15);
             this.label4.TabIndex = 10;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(109, 123);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(606, 30);
+            this.label5.TabIndex = 12;
+            this.label5.Text = resources.GetString("label5.Text");
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(466, 173);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(48, 23);
+            this.numericUpDown1.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(308, 176);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(153, 15);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Minimum months dormant";
+            // 
             // WorkspaceAuditFormHistorical
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 271);
+            this.ClientSize = new System.Drawing.Size(832, 328);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.progressBar1);
@@ -128,8 +161,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorkspaceAuditFormHistorical";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Workspace Auditing";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkspaceAuditFormHistorical_FormClosed);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +179,8 @@
         private Button button2;
         private SaveFileDialog saveFileDialog1;
         private Label label4;
+        private Label label5;
+        private NumericUpDown numericUpDown1;
+        private Label label6;
     }
 }
