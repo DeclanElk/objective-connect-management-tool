@@ -27,6 +27,10 @@ namespace objective_connect_auditing
             //Clear alert
             label4.Text = "";
 
+            //Change button to disabled and indicate function is running
+            button1.Text = "Running...";
+            button1.Enabled = false;
+
             try
             {
                 //URL Formatting
@@ -122,14 +126,28 @@ namespace objective_connect_auditing
                             DateTime.TryParse(fields2[0], out mostRecentEvent);
                         }
 
+                        int dormantMonths = Decimal.ToInt32(numericUpDown1.Value);
+
                         //After the CSV has been read, add workspace details and final recorded date to output
-                        if (mostRecentEvent == DateTime.MinValue)
+                        if (dormantMonths == 0)
                         {
-                            outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], "" });
+                            //If a minimum dormant time period has not been specified, log all workspaces
+                            if (mostRecentEvent == DateTime.MinValue)
+                            {
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], "" });
+                            }
+                            else
+                            {
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
+                            }
                         }
                         else
                         {
-                            outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
+                            //Else, only log those with activity that is older than the curent time minus the number of months specified
+                            if (mostRecentEvent != DateTime.MinValue && mostRecentEvent < DateTime.Now.AddMonths(dormantMonths))
+                            {
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
+                            }
                         }
                     }
 
@@ -169,8 +187,11 @@ namespace objective_connect_auditing
                     label4.ForeColor = Color.Red;
                 }
 
-                //Clear progress bar
+                //Reset indicators
+                button1.Text = "Run report";
+                button1.Enabled = true;
                 progressBar1.Value = 0;
+
             }
             catch
             {
@@ -180,6 +201,12 @@ namespace objective_connect_auditing
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+
+                //Reset indicators
+                button1.Text = "Run report";
+                button1.Enabled = true;
+                label4.Text = "";
+                progressBar1.Value = 0;
             }
         }
 
