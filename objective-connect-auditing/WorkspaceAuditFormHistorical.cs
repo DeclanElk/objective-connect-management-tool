@@ -144,7 +144,7 @@ namespace objective_connect_auditing
                         else
                         {
                             //Else, only log those with activity that is older than the curent time minus the number of months specified
-                            if (mostRecentEvent != DateTime.MinValue && mostRecentEvent < DateTime.Now.AddMonths(dormantMonths))
+                            if (mostRecentEvent != DateTime.MinValue && mostRecentEvent < DateTime.Now.AddMonths(-dormantMonths))
                             {
                                 outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
                             }
