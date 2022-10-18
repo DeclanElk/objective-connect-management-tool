@@ -16,14 +16,6 @@
         }
 
         //Navigate to individual report form
-        private void button1_Click(object sender, EventArgs e)
-        {
-            WorkspaceAuditForm wsAuditForm = new WorkspaceAuditForm(token, workgroupUuid, accountUuid);
-            wsAuditForm.Show();
-            this.Hide();
-        }
-
-        //Navigate to individual report form
         private void button2_Click(object sender, EventArgs e)
         {
             WorkspaceAuditFormHistorical wsHistoricalAuditForm = new WorkspaceAuditFormHistorical(token, workgroupUuid, accountUuid);
