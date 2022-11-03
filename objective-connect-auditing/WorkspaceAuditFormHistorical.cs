@@ -134,11 +134,11 @@ namespace objective_connect_auditing
                             //If a minimum dormant time period has not been specified, log all workspaces
                             if (mostRecentEvent == DateTime.MinValue)
                             {
-                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], "" });
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], "", fields[11], fields[13] });
                             }
                             else
                             {
-                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], mostRecentEvent.ToString("dd/MM/yyyy"), fields[11], fields[13] });
                             }
                         }
                         else
@@ -146,7 +146,7 @@ namespace objective_connect_auditing
                             //Else, only log those with activity that is older than the curent time minus the number of months specified
                             if (mostRecentEvent != DateTime.MinValue && mostRecentEvent < DateTime.Now.AddMonths(-dormantMonths))
                             {
-                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], fields[11], mostRecentEvent.ToString("dd/MM/yyyy") });
+                                outputWorkspaces.Add(new string[] { fields[1], fields[2], fields[5], mostRecentEvent.ToString("dd/MM/yyyy"), fields[11], fields[13] });
                             }
                         }
                     }
@@ -158,7 +158,7 @@ namespace objective_connect_auditing
 
                 //Format each output workspace into comma delinieated string
                 string[] csvOutputLines = new string[outputWorkspaces.Count + 1];
-                csvOutputLines[0] = "Workspace Name,Owner,Open Date,Connections,Last Accessed";
+                csvOutputLines[0] = "Workspace Name,Owner,Open Date,Last Accessed,Connections,Participants";
 
                 for (int i = 0; i < outputWorkspaces.Count; i++)
                 {
@@ -166,11 +166,11 @@ namespace objective_connect_auditing
                     DateTime openDate;
                     if (DateTime.TryParse(outputWorkspaces[i][2].Substring(0, 8), out openDate))
                     {
-                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + openDate.ToString("dd/MM/yyyy") + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4];
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + openDate.ToString("dd/MM/yyyy") + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4] + "," + outputWorkspaces[i][5];
                     }
                     else
                     {
-                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4];
+                        csvOutputLines[i + 1] = "\"" + outputWorkspaces[i][0] + "\"" + "," + outputWorkspaces[i][1] + "," + outputWorkspaces[i][2] + "," + outputWorkspaces[i][3] + "," + outputWorkspaces[i][4] + "," + outputWorkspaces[i][5];
                     }
                 }
 
